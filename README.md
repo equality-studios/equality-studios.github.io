@@ -17,9 +17,9 @@ The public Roblox profile, group ownership, game publisher, update notes, and Di
 
 ## GitHub Pages
 
-The GitHub Pages address is `https://aperson-ux.github.io/equality-studios/` once Pages is enabled and deployment succeeds.
+The organization website address is `https://equality-studios.github.io/` once the organization is created, Pages is enabled, and deployment succeeds.
 
-`site.config.json` contains the GitHub origin and project path. The build applies this path to navigation, images, news articles, metadata, and direct page links. The workflow in `.github/workflows/pages.yml` builds, checks, and publishes `dist` on pushes to `main`, and can also be run manually.
+The website repository must be named `equality-studios.github.io` under the `equality-studios` organization. `site.config.json` contains the organization origin and an empty base path so the website opens directly at the root address. The build applies this configuration to navigation, images, news articles, metadata, and direct page links. The workflow in `.github/workflows/pages.yml` builds, checks, and publishes `dist` on pushes to `main`, and can also be run manually.
 
 In repository **Settings → Pages**, choose **GitHub Actions** as the publishing source. GitHub Free requires a public repository for Pages. The source code contains no passwords, API keys, or account tokens.
 
