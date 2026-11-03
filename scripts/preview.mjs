@@ -10,7 +10,7 @@ const server = http.createServer(async (request, response) => {
     let pathname;
     try { pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname); }
     catch { response.writeHead(400).end('Bad request'); return; }
-    if (pathname === '/') { response.writeHead(302, { Location: basePath + '/' }).end(); return; }
+    if (basePath && pathname === '/') { response.writeHead(302, { Location: basePath + '/' }).end(); return; }
     if (pathname === basePath) { response.writeHead(302, { Location: basePath + '/' }).end(); return; }
     if (!pathname.startsWith(basePath + '/')) { response.writeHead(404).end('Not found'); return; }
     pathname = pathname.slice(basePath.length);

@@ -5,7 +5,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const config = JSON.parse(readFileSync(path.join(root, 'site.config.json'), 'utf8'));
 const origin = new URL(config.origin).origin;
 const basePath = config.basePath.replace(/\/+$/, '');
-if (!/^\/[a-zA-Z0-9_-]+$/.test(basePath)) throw new Error('Invalid GitHub Pages base path');
+if (basePath && !/^\/[a-zA-Z0-9_-]+$/.test(basePath)) throw new Error('Invalid GitHub Pages base path');
 const siteUrl = origin + basePath;
 const appPath = path.join(root, 'source/original-app.js');
 let app = readFileSync(appPath, 'utf8');
@@ -36,7 +36,7 @@ replaceOnce('case`/updates`:t=(0,D.jsx)(Ct,{});break;default:', 'case`/updates`:
 replaceOnce('id:`main`,className:`site-main`', 'id:`main`,tabIndex:-1,className:`site-main`');
 // Explicit UTC prevents the source timestamp from being mistaken for local time.
 app = app.replaceAll('October 30, 2026', 'October 30, 2026 (UTC)');
-// GitHub project sites live below /equality-studios, including direct deep links.
+// Support both organization root sites and GitHub project paths.
 app = app.replaceAll('/images/', basePath + '/images/');
 app += `
 function normalizePath(value){return value.replace(/\\/+$/, '') || '/'}

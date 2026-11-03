@@ -16,6 +16,7 @@ for (const route of routes) {
   assert(html.includes('name="description"'), `Missing description: ${route}`);
   assert(html.includes(`rel="canonical" href="${siteUrl}${route}"`), `Wrong canonical: ${route}`);
   assert(!html.includes('chatgpt.site'), `Old hosting URL in ${route}`);
+  assert(!html.includes('aperson-ux.github.io'), `Personal hosting URL in ${route}`);
   for (const match of html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)) {
     assert(match[1].startsWith(basePath + '/'), `Asset missing GitHub project prefix: ${match[1]}`);
     assert(existsSync(path.join(root, 'dist', match[1].slice(basePath.length))), `Missing local HTML asset: ${match[1]}`);
@@ -41,6 +42,7 @@ assert(app.includes('aria-current') && app.includes('Main navigation'), 'Missing
 assert(app.includes('Equality Studios home') && !app.includes('Open menu'), 'Navigation must stay visible');
 assert(app.includes(`base:${JSON.stringify(basePath)}`), 'Router is missing its GitHub Pages base');
 assert(!app.includes('chatgpt.site'), 'Old hosting URL remains in generated application');
+assert(!app.includes('aperson-ux.github.io'), 'Personal hosting URL remains in generated application');
 assert(app.includes(`${basePath}/images/`), 'Application images are missing their GitHub project prefix');
 assert(existsSync(path.join(root,'dist/assets/site-config.js')), 'News asset configuration is missing');
 assert(existsSync(path.join(root,'dist/.nojekyll')), 'GitHub Pages marker is missing');
